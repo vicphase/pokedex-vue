@@ -3,7 +3,9 @@
     <div v-for="pokemon in list" :key="pokemon.id" class="row border-top py-2">
       <div class="col-4">
         <img
-          v-bind:src="pokemon.sprites.front_default"
+          v-bind:src="
+            `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`
+          "
           class="border rounded"
         />
       </div>
@@ -14,7 +16,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col flex-start">
+          <div v-if="pokemon.types" class="col flex-start">
             <div
               v-for="type in pokemon.types"
               :key="type.id"
@@ -33,13 +35,14 @@
 </template>
 
 <script>
-import { bulbasaur } from './bulbasaur.mock';
 export default {
   name: 'PokedexList',
-  data() {
-    return {
-      list: [bulbasaur]
-    };
+  props: {
+    list: {
+      type: Array,
+      default: () => [],
+      required: true
+    }
   },
   filters: {
     capitalize: function(value) {
@@ -48,7 +51,7 @@ export default {
       return value.charAt(0).toUpperCase() + value.slice(1);
     },
     threeDigit: function(value) {
-      const str = '' + value;
+      const str = String(value);
       const pad = '000';
       return pad.substring(0, pad.length - str.length) + str;
     }
