@@ -1,7 +1,5 @@
 <template>
-  <div class="row">
-    {{ list }}
-  </div>
+  <div class="row"></div>
 </template>
 
 <script>

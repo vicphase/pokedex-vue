@@ -1,4 +1,4 @@
-import PokedexListContainer from '@/pokedex/containers/pokedex-list-container.vue';
+import PokedexList from '@/pokedex/components/pokedex-list.vue';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 
@@ -8,7 +8,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Pokedex',
-    component: PokedexListContainer
+    component: PokedexList
   }
 ];
 
