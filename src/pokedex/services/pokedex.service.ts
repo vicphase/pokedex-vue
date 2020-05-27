@@ -1,11 +1,15 @@
 import axios from 'axios';
 
+import { PokemonListResponse } from '../models/pokemon-list-response';
+
 export class PokedexService {
-  static async getPokemon(): Promise<any> {
-    const response = await axios.get('https://pokeapi.co/api/v2/pokemon');
-    return response.data.results.map((pokemon: any, index: number) => ({
-      id: index + 1,
-      ...pokemon
-    }));
+  static async getPokemon(url?: string): Promise<PokemonListResponse> {
+    const response = await axios.get<PokemonListResponse>(
+      url || 'https://pokeapi.co/api/v2/pokemon'
+    );
+    return {
+      results: response.data.results,
+      next: response.data.next
+    };
   }
 }
