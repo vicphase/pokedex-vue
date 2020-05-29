@@ -1,20 +1,21 @@
 <template>
-  <div class="row border-top py-2">
-    <div class="col-4">
-      <img
-        v-bind:src="
-          `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`
-        "
-        class="border rounded"
-      />
-    </div>
-    <div class="col-5 flex-start">
-      <div class="row">
-        <div class="col">
-          {{ pokemon.name | capitalize }}
-        </div>
+  <router-link :to="{ name: 'PokemonDetail', params: { id: pokemon.id } }">
+    <div class="row border-top py-2">
+      <div class="col-4">
+        <img
+          v-bind:src="
+            `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`
+          "
+          class="border rounded"
+        />
       </div>
-      <!-- <div class="row">
+      <div class="col-5 flex-start">
+        <div class="row">
+          <div class="col">
+            {{ pokemon.name | capitalize }}
+          </div>
+        </div>
+        <!-- <div class="row">
         <div v-if="pokemon.types" class="col flex-start">
           <div
             v-for="type in pokemon.types"
@@ -27,9 +28,10 @@
           </div>
         </div>
       </div> -->
+      </div>
+      <div class="col-3 flex-start">#{{ pokemon.id | threeDigit }}</div>
     </div>
-    <div class="col-3 flex-start">#{{ pokemon.id | threeDigit }}</div>
-  </div>
+  </router-link>
 </template>
 
 <script>
