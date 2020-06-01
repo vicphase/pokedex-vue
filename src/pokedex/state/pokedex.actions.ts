@@ -8,7 +8,11 @@ export enum PokedexActionTypes {
 
 export const PokedexActions = {
   async [PokedexActionTypes.GetPokemon]({ commit }, url?: string) {
+    commit(PokedexActionTypes.GetPokemon, true);
     const pokemon = await PokedexService.getPokemon(url);
-    commit(PokedexActionTypes.GetPokemonSuccess, pokemon.results);
+    commit(PokedexActionTypes.GetPokemonSuccess, {
+      results: pokemon.results,
+      next: pokemon.next
+    });
   }
 };

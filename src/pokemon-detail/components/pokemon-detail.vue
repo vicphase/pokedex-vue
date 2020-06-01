@@ -31,7 +31,7 @@
       </div>
       <div class="col-8">
         <p class="small">
-          {{ species.flavor_text_entries[1].flavor_text }}
+          {{ description }}
         </p>
       </div>
     </div>
@@ -69,10 +69,41 @@
         <span>Evolution</span>
       </div>
     </div>
+
+    <div
+      v-for="pokemon in evolutions"
+      :key="pokemon.id"
+      class="row py-2 border-top"
+    >
+      <div class="col-4">
+        <img
+          v-bind:src="
+            `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`
+          "
+          class="border rounded"
+        />
+      </div>
+
+      <div class="col-7 offset-1">
+        <div class="row">
+          <div class="col flex-end">#{{ pokemon.id }}</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            {{ pokemon.name }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+function getIdFromUrl(url) {
+  const stringArray = url.split('/');
+  return Number(stringArray[stringArray.length - 2]);
+}
+
 export default {
   name: 'PokemonDetail',
   props: {
@@ -85,6 +116,36 @@ export default {
       type: Object,
       default: () => null,
       required: true
+    },
+    evolutionChain: {
+      type: Object,
+      default: () => null,
+      required: true
+    }
+  },
+  computed: {
+    evolutions() {
+      const evolutions = [];
+      let evolutionData = this.evolutionChain.chain;
+
+      do {
+        const evolutionSpecies = evolutionData.species;
+        const id = getIdFromUrl(evolutionSpecies.url);
+        evolutions.push({
+          id,
+          name: evolutionSpecies.name,
+          img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+        });
+
+        evolutionData = evolutionData.evolves_to[0];
+      } while (evolutionData);
+      return evolutions;
+    },
+
+    description() {
+      return this.species.flavor_text_entries.find(
+        entries => entries.language.name === 'en'
+      ).flavor_text;
     }
   }
 };

@@ -13,7 +13,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/:id',
-    name: 'PokemonDetail',
+    name: 'PokemonDetailContainer',
     component: PokemonDetailContainer
   }
 ];

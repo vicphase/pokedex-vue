@@ -1,18 +1,26 @@
 import { AppState } from '@/store/app.state';
 
-import { PokemonInList } from '../models/pokemon-in-list';
+import { PokemonListResponse } from '../models/pokemon-list-response';
 import { PokedexActionTypes } from './pokedex.actions';
 
 export const PokedexMutations = {
+  [PokedexActionTypes.GetPokemon](state: AppState) {
+    state.pokedex.loading = true;
+  },
   [PokedexActionTypes.GetPokemonSuccess](
     state: AppState,
-    pokemon: PokemonInList[]
+    response: PokemonListResponse
   ) {
+    state.pokedex.loading = false;
     state.pokedex.list = state.pokedex.list
-      .concat(pokemon)
+      .concat(response.results)
       .map((pokemon, index) => ({
         id: index + 1,
         ...pokemon
       }));
+    state.pokedex.next = response.next;
+  },
+  [PokedexActionTypes.GetPokemonFailed](state: AppState) {
+    state.pokedex.loading = false;
   }
 };

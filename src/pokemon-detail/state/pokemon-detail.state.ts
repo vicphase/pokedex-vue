@@ -1,9 +1,11 @@
 export interface PokemonDetailState {
-  item: any;
-  species: any;
+  item;
+  species;
+  evolutionChain;
 }
 
 export const initialState: PokemonDetailState = {
   item: null,
-  species: null
+  species: null,
+  evolutionChain: null
 };

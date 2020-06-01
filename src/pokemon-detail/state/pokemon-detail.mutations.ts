@@ -11,5 +11,11 @@ export const PokemonDetailMutations = {
     pokemonSpecies
   ) {
     state.pokemonDetail.species = pokemonSpecies;
+  },
+  [PokemonDetailActionTypes.GetPokemonEvolutionChainSuccess](
+    state: AppState,
+    pokemonEvolutionChain
+  ) {
+    state.pokemonDetail.evolutionChain = pokemonEvolutionChain;
   }
 };

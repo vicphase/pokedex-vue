@@ -1,5 +1,7 @@
 <template>
-  <router-link :to="{ name: 'PokemonDetail', params: { id: pokemon.id } }">
+  <router-link
+    :to="{ name: 'PokemonDetailContainer', params: { id: pokemon.id } }"
+  >
     <div class="row border-top py-2">
       <div class="col-4">
         <img
